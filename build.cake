@@ -225,25 +225,25 @@ Task("Sonar-Begin")
         DuplicationExclusions = "**/*.Generated.cs/**, **/*.Service/Startup.cs, **/*.Service/Program.cs"
     };
 
-    if (parameters.IsLocalBuild) {
-        settings.Branch = parameters.Version.GitVersion.BranchName;
-    } else if (parameters.IsPullRequest) {
-        settings.PullRequestProvider = "vsts";
-        settings.PullRequestVstsEndpoint = AzurePipelines.Environment.TeamProject.CollectionUri.ToString();
-        settings.PullRequestVstsProject = AzurePipelines.Environment.TeamProject.Name;
-        settings.PullRequestVstsRepository = AzurePipelines.Environment.Repository.RepoName;
-        settings.PullRequestKey = AzurePipelines.Environment.PullRequest.Id;
-        settings.PullRequestBranch = AzurePipelines.Environment.PullRequest.SourceBranch.Replace("refs/heads/", string.Empty);
-        settings.PullRequestBase = AzurePipelines.Environment.PullRequest.TargetBranch.Replace("refs/heads/", string.Empty);
-    } else {
-        settings.Branch = AzurePipelines.Environment.Repository.SourceBranchName;
-    }
+    // if (parameters.IsLocalBuild) {
+    //     settings.Branch = parameters.Version.GitVersion.BranchName;
+    // } else if (parameters.IsPullRequest) {
+    //     settings.PullRequestProvider = "vsts";
+    //     settings.PullRequestVstsEndpoint = AzurePipelines.Environment.TeamProject.CollectionUri.ToString();
+    //     settings.PullRequestVstsProject = AzurePipelines.Environment.TeamProject.Name;
+    //     settings.PullRequestVstsRepository = AzurePipelines.Environment.Repository.RepoName;
+    //     settings.PullRequestKey = AzurePipelines.Environment.PullRequest.Id;
+    //     settings.PullRequestBranch = AzurePipelines.Environment.PullRequest.SourceBranch.Replace("refs/heads/", string.Empty);
+    //     settings.PullRequestBase = AzurePipelines.Environment.PullRequest.TargetBranch.Replace("refs/heads/", string.Empty);
+    // } else {
+    //     settings.Branch = AzurePipelines.Environment.Repository.SourceBranchName;
+    // }
 
-    if (parameters.IsRunningOnWindows)
-    {
-        settings.OpenCoverReportsPath = settings.OpenCoverReportsPath.Replace("/", "\\");
-        settings.VsTestReportsPath = settings.VsTestReportsPath.Replace("/", "\\");
-    }
+    // if (parameters.IsRunningOnWindows)
+    // {
+    //     settings.OpenCoverReportsPath = settings.OpenCoverReportsPath.Replace("/", "\\");
+    //     settings.VsTestReportsPath = settings.VsTestReportsPath.Replace("/", "\\");
+    // }
 
     SonarBegin(settings);
 }).OnError<BuildParameters>((exception, parameters) =>
