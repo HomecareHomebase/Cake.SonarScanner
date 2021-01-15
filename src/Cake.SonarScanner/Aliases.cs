@@ -1,10 +1,13 @@
+using System.Runtime.CompilerServices;
 using Cake.Core;
 using Cake.Core.Annotations;
+
+[assembly: InternalsVisibleTo("Cake.SonarScanner.Tests")]
 
 namespace Cake.SonarScanner
 {
     /// <summary>
-    /// Contains functionality for using the Sonar Scanner tool
+    ///     Contains functionality for using the Sonar Scanner tool
     /// </summary>
     /// <code>
     /// <![CDATA[
@@ -15,17 +18,17 @@ namespace Cake.SonarScanner
     public static class SonarScannerAliases
     {
         /// <summary>
-        /// Runs SonarScanner with the default settings
+        ///     Runs SonarScanner with the default settings
         /// </summary>
         /// <example>
-        /// <para>Use the #addin preprocessor directive</para>
-        /// <code>
+        ///     <para>Use the #addin preprocessor directive</para>
+        ///     <code>
         /// <![CDATA[
         /// #addin "nuget:?package=Cake.SonarScanner"
         /// ]]>
         /// </code>
-        /// <para>Cake task:</para>
-        /// <code>
+        ///     <para>Cake task:</para>
+        ///     <code>
         /// <![CDATA[
         /// Task("SomeTask").Does(() =>  SonarScanner());
         /// ]]>
@@ -39,17 +42,17 @@ namespace Cake.SonarScanner
         }
 
         /// <summary>
-        /// Runs SonarScanner with the specified settings
+        ///     Runs SonarScanner with the specified settings
         /// </summary>
         /// <example>
-        /// <para>Use the #addin preprocessor directive</para>
-        /// <code>
+        ///     <para>Use the #addin preprocessor directive</para>
+        ///     <code>
         /// <![CDATA[
         /// #addin "nuget:?package=Cake.SonarScanner"
         /// ]]>
         /// </code>
-        /// <para>Cake task:</para>
-        /// <code>
+        ///     <para>Cake task:</para>
+        ///     <code>
         /// <![CDATA[
         /// Task("SomeTask").Does(() =>  SonarScanner(new SonarScannerSettings
         /// {
@@ -62,7 +65,8 @@ namespace Cake.SonarScanner
         [CakeMethodAlias]
         public static void SonarScanner(this ICakeContext context, SonarScannerSettings settings)
         {
-            var runner = new SonarScannerTool(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
+            var runner = new SonarScannerTool(context.FileSystem, context.Environment, context.ProcessRunner,
+                context.Tools);
             runner.RunSonarScanner(settings);
         }
     }

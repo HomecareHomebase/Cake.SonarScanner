@@ -23,24 +23,17 @@ namespace Cake.SonarScanner
 
         protected sealed override IEnumerable<string> GetToolExecutableNames()
         {
-            return new[] { "sonar-scanner.bat", "sonar-scanner" };
+            return new[] {"sonar-scanner.bat", "sonar-scanner"};
         }
 
         protected internal void RunSonarScanner(SonarScannerSettings settings)
         {
             var sb = new ProcessArgumentBuilder();
-            if (settings.Debug)
-            {
-                sb.Append("-X");
-            }
+            if (settings.Debug) sb.Append("-X");
 
             if (settings.Properties != null)
-            {
                 foreach (var settingsProperty in settings.Properties)
-                {
                     sb.Append("-D" + settingsProperty.Key + "=" + settingsProperty.Value);
-                }
-            }
 
             Run(settings, sb);
         }
